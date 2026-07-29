@@ -1,3 +1,4 @@
+import 'package:bookdianight_app/app/modules/user_side/dashboard/user_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bookdianight_app/app/core/resources/common_widget/custom_button.dart';
@@ -154,7 +155,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
-
+                    Get.to(() => const UserDashboard());
                   },
                   child: Container(
                     color: Colors.transparent,

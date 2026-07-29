@@ -46,7 +46,7 @@ class MyBookingsView extends StatelessWidget {
                   return GestureDetector(
                     onTap: () =>
                         Get.to(() => BookingDetailsView(booking: booking)),
-                    child: ClubEventCard(club: booking.club, isFavoriteShow: false,),
+                    child: ClubEventCard(club: booking.club, isFavoriteBadgeShow: false,),
                   );
                 },
               ),

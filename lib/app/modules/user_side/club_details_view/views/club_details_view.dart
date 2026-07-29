@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../home/controllers/club_controller.dart';
 import '../controllers/club_details_controller.dart';
 import '../widgets/club_bottom_action_bar.dart';
 import '../widgets/club_info_section.dart';
@@ -7,11 +8,16 @@ import '../widgets/club_sliver_app_bar.dart';
 import '../widgets/club_tab_content.dart';
 
 class ClubDetailsView extends StatelessWidget {
-  const ClubDetailsView({super.key});
+  final ClubModel clubModel;
+  final bool? isFavorite;
+  const ClubDetailsView({super.key, this.isFavorite, required this.clubModel});
 
   @override
   Widget build(BuildContext context) {
-    final ClubDetailsController controller = Get.put(ClubDetailsController());
+    final ClubDetailsController controller = Get.put(
+      ClubDetailsController(clubModel: clubModel),
+      tag: clubModel.title,
+    );
 
     // Theme Colors
     const Color bgColor = Color(0xFF0D0D0D);
@@ -27,14 +33,14 @@ class ClubDetailsView extends StatelessWidget {
         controller: controller,
         bgColor: bgColor,
         primaryColor: primaryYellow,
+        isFavorite: isFavorite,
       ),
 
       body: CustomScrollView(
         slivers: [
           // Header Cover Image
-          const ClubSliverAppBar(
-            imageUrl:
-                'https://images.unsplash.com/photo-1540039155732-d688d52cb4b1',
+          ClubSliverAppBar(
+            imageUrl: clubModel.image,
             bgColor: bgColor,
           ),
 
@@ -45,13 +51,14 @@ class ClubDetailsView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Info Section (Title, Price, Ratings)
-                  const ClubInfoSection(
-                    title: 'XOYO London',
-                    rating: '4.8',
+                  ClubInfoSection(
+                    title: clubModel.title,
+                    rating: clubModel.rating,
                     reviewsCount: '(256)',
-                    price: '\$191.00',
+                    price: clubModel.price,
                     primaryColor: primaryYellow,
                     textGrey: textGrey,
+                    type: clubModel.type,
                   ),
                   const SizedBox(height: 24),
 
@@ -72,28 +79,24 @@ class ClubDetailsView extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
 
-                  // Dynamic Tab Content
-                  Obx(() {
-                    switch (controller.selectedTabIndex.value) {
-                      case 0:
-                        return ClubTabContent.buildAboutTab(textGrey);
-                      case 1:
-                        return ClubTabContent.buildAddressTab(
-                          cardBgColor,
-                          textGrey,
-                        );
-                      case 2:
-                        return ClubTabContent.buildPhotosTab(controller.photos);
-                      case 3:
-                        return ClubTabContent.buildReviewsTab(
-                          controller.reviews,
-                          primaryYellow,
-                          textGrey,
-                        );
-                      default:
-                        return const SizedBox.shrink();
-                    }
-                  }),
+                // Dynamic Tab Content by Tab Name
+                Obx(() {
+                  String currentTab = controller.tabs[controller.selectedTabIndex.value];
+                  switch (currentTab) {
+                    case 'About':
+                      return ClubTabContent.buildAboutTab(textGrey);
+                    case 'Address':
+                      return ClubTabContent.buildAddressTab(cardBgColor, textGrey);
+                    case 'Photos':
+                      return ClubTabContent.buildPhotosTab(controller.photos);
+                    case 'Tables':
+                      return ClubTabContent.buildTablesTab(controller.tablePackages, primaryYellow, cardBgColor);
+                    case 'Reviews':
+                      return ClubTabContent.buildReviewsTab(controller.reviews, primaryYellow, textGrey);
+                    default:
+                      return const SizedBox.shrink();
+                  }
+                }),
                   const SizedBox(height: 40),
                 ],
               ),

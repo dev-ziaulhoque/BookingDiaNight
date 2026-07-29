@@ -45,8 +45,7 @@ class ClubTabContent {
         ),
         const SizedBox(height: 12),
         CustomText(
-          text:
-              'Get ready for a high-energy evening featuring live music, signature cocktails, VIP tables, and an unforgettable party crowd. Book your spot early and enjoy a seamless night out at one of the city\'s most exciting venues.\n\nJoin us for an unforgettable night filled with great music, energetic vibes, premium drinks, and a crowd ready to celebrate.',
+          text: 'Get ready for a high-energy evening featuring live music, signature cocktails, VIP tables, and an unforgettable party crowd. Book your spot early and enjoy a seamless night out at one of the city\'s most exciting venues.\n\nJoin us for an unforgettable night filled with great music, energetic vibes, premium drinks, and a crowd ready to celebrate.',
           fontSize: 14,
           color: textGrey,
           height: 1.5,
@@ -81,19 +80,8 @@ class ClubTabContent {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          flex: 2,
-          child: CustomText(text: label, fontSize: 14, color: textGrey),
-        ),
-        Expanded(
-          flex: 3,
-          child: CustomText(
-            text: value,
-            fontSize: 14,
-            color: Colors.white,
-            textAlign: TextAlign.right,
-          ),
-        ),
+        Expanded(flex: 2, child: CustomText(text: label, fontSize: 14, color: textGrey)),
+        Expanded(flex: 3, child: CustomText(text: value, fontSize: 14, color: Colors.white, textAlign: TextAlign.right)),
       ],
     );
   }
@@ -122,12 +110,57 @@ class ClubTabContent {
     );
   }
 
-  // 4. Reviews Tab
-  static Widget buildReviewsTab(
-    List<Map<String, dynamic>> reviews,
-    Color primaryColor,
-    Color textGrey,
-  ) {
+  // 4. Tables Tab (New Added)
+  static Widget buildTablesTab(List<Map<String, dynamic>> tables, Color primaryColor, Color cardBgColor) {
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      itemCount: tables.length,
+      separatorBuilder: (context, index) => const SizedBox(height: 16),
+      itemBuilder: (context, index) {
+        final table = tables[index];
+        return Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: cardBgColor,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomText(text: table['title'], fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                  CustomText(text: table['price'], fontSize: 16, fontWeight: FontWeight.bold, color: primaryColor),
+                ],
+              ),
+              const SizedBox(height: 4),
+              CustomText(text: 'Capacity: ${table['capacity']}', fontSize: 12, color: Colors.grey),
+              const SizedBox(height: 12),
+              ...table['features'].map<Widget>((feature) => Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 4, width: 4,
+                      decoration: const BoxDecoration(color: Colors.grey, shape: BoxShape.circle),
+                    ),
+                    const SizedBox(width: 8),
+                    CustomText(text: feature, fontSize: 12, color: Colors.grey),
+                  ],
+                ),
+              )).toList(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // 5. Reviews Tab
+  static Widget buildReviewsTab(List<Map<String, dynamic>> reviews, Color primaryColor, Color textGrey) {
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -142,18 +175,11 @@ class ClubTabContent {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(
-                  text: review['name'],
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
+                CustomText(text: review['name'], fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
                 Row(
                   children: List.generate(5, (starIndex) {
                     return Icon(
-                      starIndex < review['rating']
-                          ? Icons.star
-                          : Icons.star_border,
+                      starIndex < review['rating'] ? Icons.star : Icons.star_border,
                       color: primaryColor,
                       size: 16,
                     );
@@ -164,12 +190,7 @@ class ClubTabContent {
             const SizedBox(height: 4),
             CustomText(text: review['date'], fontSize: 12, color: textGrey),
             const SizedBox(height: 12),
-            CustomText(
-              text: review['comment'],
-              fontSize: 14,
-              color: Colors.white70,
-              height: 1.5,
-            ),
+            CustomText(text: review['comment'], fontSize: 14, color: Colors.white70, height: 1.5),
           ],
         );
       },

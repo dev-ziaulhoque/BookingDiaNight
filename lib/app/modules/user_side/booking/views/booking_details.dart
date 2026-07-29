@@ -21,7 +21,7 @@ class BookingDetailsView extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            ClubEventCard(club: booking.club, isFavoriteShow: false,),
+            ClubEventCard(club: booking.club, isFavoriteBadgeShow: false,),
             const SizedBox(height: 25),
             _buildSummaryCard("Booking summary", {
               "Venue": booking.venue,

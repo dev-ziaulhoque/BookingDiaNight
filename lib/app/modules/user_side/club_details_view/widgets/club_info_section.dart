@@ -8,6 +8,7 @@ class ClubInfoSection extends StatelessWidget {
   final String price;
   final Color primaryColor;
   final Color textGrey;
+  final String type;
 
   const ClubInfoSection({
     super.key,
@@ -17,6 +18,7 @@ class ClubInfoSection extends StatelessWidget {
     required this.price,
     required this.primaryColor,
     required this.textGrey,
+    required this.type,
   });
 
   @override
@@ -30,8 +32,8 @@ class ClubInfoSection extends StatelessWidget {
             color: const Color(0xFF1E1E1E),
             borderRadius: BorderRadius.circular(20),
           ),
-          child: const CustomText(
-            text: 'Event',
+          child: CustomText(
+            text: type,
             color: Colors.white,
             fontSize: 12,
           ),
@@ -66,21 +68,23 @@ class ClubInfoSection extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 8),
-        Row(
-          children: [
-            CustomText(
-              text: price,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: primaryColor,
-            ),
-            CustomText(
-              text: ' /person',
-              fontSize: 14,
-              color: textGrey,
-            ),
-          ],
-        ),
+
+        if (type.toLowerCase() != 'club') // চাইলে ক্লাব হলে পার-পার্সন প্রাইস হাইড করতে পারেন
+          Row(
+            children: [
+              CustomText(
+                text: price,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: primaryColor,
+              ),
+              CustomText(
+                text: ' /person',
+                fontSize: 14,
+                color: textGrey,
+              ),
+            ],
+          ),
       ],
     );
   }

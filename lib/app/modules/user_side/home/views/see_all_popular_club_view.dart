@@ -13,7 +13,7 @@ class SeeAllPopularClubView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: CustomAppBar(
-        title: "See All Popular Clubs",
+        title: "🔥 Popular clubs",
         backgroundColor: Colors.black,
       ),
       body: Obx(() =>  ListView.separated(

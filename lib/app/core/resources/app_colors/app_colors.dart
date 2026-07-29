@@ -56,7 +56,7 @@ class AppColors {
 
   /// Background color
   static Color backgroundColor(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark
+    return Theme.of(context).brightness == Brightness.light
         ? Colors.black
         : const Color(0xFFFFFFFF);
   }

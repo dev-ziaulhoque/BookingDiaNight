@@ -1,3 +1,4 @@
+import 'package:bookdianight_app/app/modules/user_side/club_details_view/views/club_details_view.dart';
 import 'package:bookdianight_app/app/modules/user_side/home/views/see_all_popular_club_view.dart';
 import 'package:bookdianight_app/app/modules/user_side/home/views/tonight_near_you_view.dart';
 import 'package:flutter/material.dart';
@@ -7,10 +8,12 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import '../../../../core/resources/common_widget/custom_network_image.dart';
 import '../../../../core/resources/common_widget/custom_text.dart';
 import '../../../../core/resources/common_widget/custom_text_field.dart';
+import '../../../notification/views/notification_view.dart';
 import '../../explore/widget/club_event_card.dart';
 import '../controllers/club_controller.dart';
 import '../widgets/club_list_tile.dart';
 import '../widgets/home_reuseble.dart';
+import 'explore_vip_table.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -29,7 +32,6 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 20),
               _buildHeader(),
               const SizedBox(height: 25),
-
 
               CustomTextField(
                 hint: "Search clubs, events, lounges...",
@@ -53,14 +55,20 @@ class HomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: controller.tonightClubs.length,
                   separatorBuilder: (_, __) => const SizedBox(width: 15),
-                  itemBuilder: (context, index) => ClubEventCard(
-                    club: controller.tonightClubs[index],
-                    width: 280,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      Get.to(() => ClubDetailsView(
+                        clubModel:  controller.tonightClubs[index],
+                          isFavorite: false));
+                    },
+                    child: ClubEventCard(
+                      club: controller.tonightClubs[index],
+                      width: 280,
+                    ),
                   ),
                 ),
               ),
               const SizedBox(height: 25),
-
 
               /// Popular Clubs
               CommonComponents.sectionHeader("🔥 Popular clubs", () {
@@ -73,20 +81,28 @@ class HomeScreen extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: controller.popularClubs.length,
                 separatorBuilder: (_, __) => const SizedBox(height: 15),
-                itemBuilder: (context, index) =>
-                    ClubListTile(club: controller.popularClubs[index]),
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () {
+                    Get.to(() => ClubDetailsView(
+                      clubModel:  controller.tonightClubs[index],
+                        isFavorite: false));
+                  },
+                  child: ClubListTile(club: controller.popularClubs[index]),
+                ),
               ),
               const SizedBox(height: 25),
 
-
-              CommonComponents.sectionHeader("👑 VIP table deals", () {}),
+              CommonComponents.sectionHeader("👑 VIP table deals", () {
+                Get.to(() => const ExploreVipTable());
+              }),
               const SizedBox(height: 15),
 
-
-              _buildVipBanner(),
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => const ExploreVipTable());
+                },
+                  child: _buildVipBanner()),
               const SizedBox(height: 100),
-
-
             ],
           ),
         ),
@@ -110,9 +126,14 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        const CircleAvatar(
-          backgroundColor: Colors.white10,
-          child: Icon(Icons.notifications_none, color: Colors.white),
+        InkWell(
+          onTap: () {
+            Get.to(() => const NotificationView());
+          },
+          child: const CircleAvatar(
+            backgroundColor: Colors.white10,
+            child: Icon(Icons.notifications_none, color: Colors.white),
+          ),
         ),
       ],
     );

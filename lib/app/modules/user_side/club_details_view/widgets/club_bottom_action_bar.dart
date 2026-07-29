@@ -8,16 +8,21 @@ class ClubBottomActionBar extends StatelessWidget {
   final ClubDetailsController controller;
   final Color bgColor;
   final Color primaryColor;
+  final bool? isFavorite;
 
   const ClubBottomActionBar({
     super.key,
     required this.controller,
     required this.bgColor,
     required this.primaryColor,
+    this.isFavorite = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    // Condition Check
+    bool isClub = controller.clubModel.type.toLowerCase() == 'club';
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -33,26 +38,28 @@ class ClubBottomActionBar extends StatelessWidget {
             top: false,
             child: Row(
               children: [
-                Obx(() => GestureDetector(
-                  onTap: controller.toggleFavorite,
-                  child: Container(
-                    height: 52,
-                    width: 52,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1E1E1E),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Icon(
-                      controller.isFavorite.value ? Icons.favorite : Icons.favorite_border,
-                      color: controller.isFavorite.value ? Colors.red : Colors.white,
-                      size: 24,
+                Obx(
+                      () => GestureDetector(
+                    onTap: controller.toggleFavorite,
+                    child: Container(
+                      height: 52,
+                      width: 52,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF1E1E1E),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Icon(
+                        controller.isFavorite.value ? Icons.favorite : Icons.favorite_border,
+                        color: controller.isFavorite.value ? Colors.red : Colors.white,
+                        size: 24,
+                      ),
                     ),
                   ),
-                )),
+                ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: CustomButton(
-                    title: 'Get A Ticket',
+                    title: isClub ? 'Reserve Table' : 'Get A Ticket',
                     isGradient: false,
                     buttonColor: primaryColor,
                     titleColor: Colors.white,
