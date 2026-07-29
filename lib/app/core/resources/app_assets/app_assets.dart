@@ -4,9 +4,11 @@ class AppAssets {
   static const String onboardingOne = 'assets/images/Onboading (1).png';
   static const String onboardingTwo = 'assets/images/Onboading-2.png';
   static const String onboardingThree = 'assets/images/Onboading-3.png';
+  static const String profileHeaderImage = 'assets/images/profile_header_image.png';
 
   /// icons
   static const String googleIcon = 'assets/images/google-image.png';
+  static const String notificationIcon = 'assets/images/notifications-image.png';
 
   /// nav icons
   static const String navHomeActive = 'assets/images/nav-home-active.png';
@@ -19,9 +21,6 @@ class AppAssets {
   static const String navFavoriteInactive = 'assets/images/nav-favorite-inactive.png';
   static const String navProfileActive = 'assets/images/nav-profile-active.png';
   static const String navProfileInactive = 'assets/images/nav-profile-inactive.png';
-
-  /// svg
-  static const String notificationIcon = 'assets/svg/notification-bing.svg';
 
   /// lottie
   static const String successAnim = 'assets/lottie/success_anim.json';

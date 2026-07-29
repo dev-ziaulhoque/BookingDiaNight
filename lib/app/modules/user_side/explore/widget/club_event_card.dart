@@ -6,14 +6,16 @@ import '../../home/controllers/club_controller.dart';
 class ClubEventCard extends StatelessWidget {
   final ClubModel club;
   final double? width;
-  final bool? isFavoriteShow;
+  final bool? isFavoriteBadgeShow;
+  final bool? isFavorite;
   final double imageHeight;
 
   const ClubEventCard({
     super.key,
     required this.club,
     this.width,
-    this.isFavoriteShow = true,
+    this.isFavoriteBadgeShow = true,
+    this.isFavorite = false,
     this.imageHeight = 240,
   });
 
@@ -58,13 +60,17 @@ class ClubEventCard extends StatelessWidget {
           Positioned(
             top: 15,
             right: 15,
-            child: isFavoriteShow == true ? Container(
+            child: isFavoriteBadgeShow == true ? Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.3),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.favorite_border, color: Colors.white, size: 22),
+              child: Icon(isFavorite == true?
+                  Icons.favorite: Icons.favorite_border,
+                  color: isFavorite == true?
+                  Colors.red: Colors.white,
+                  size: 22),
             ):const SizedBox.shrink(),
           ),
 

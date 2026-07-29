@@ -125,10 +125,13 @@ class ExploreView extends StatelessWidget {
               itemCount: controller.tonightClubs.length,
               separatorBuilder: (_, __) => const SizedBox(height: 25),
               itemBuilder: (context, index) {
+                final itemData = controller.tonightClubs[index];
                 return InkWell(
-                  onTap: () => Get.to(() => const ClubDetailsView()),
+                  onTap: () => Get.to(() => ClubDetailsView(
+                    clubModel: itemData,
+                  )),
                   child: ClubEventCard(
-                    club: controller.tonightClubs[index],
+                    club: itemData,
                   ),
                 );
               },

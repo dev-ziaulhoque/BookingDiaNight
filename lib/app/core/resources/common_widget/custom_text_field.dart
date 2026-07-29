@@ -138,6 +138,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       enabled: widget.enabled,
       readOnly: widget.readOnly,
       obscureText: _obscureText,
+      cursorColor: Colors.white, // cursor color jeta pointer
       onTap: widget.onTap,
       onChanged: widget.onChanged,
       keyboardType: widget.keyboardType,

@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
       return GetMaterialApp(
         scaffoldMessengerKey: scaffoldMessengerKey,
         enableLog: !AppConfig.isProduction,
-        title: 'Blactrium',
+        title: 'BookingDiaNight',
         debugShowCheckedModeBanner: AppConfig.showDebugBanner,
         useInheritedMediaQuery: true,
         locale: AppConfig.isProduction ? startLocale : DevicePreview.locale(context),

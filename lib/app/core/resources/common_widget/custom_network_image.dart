@@ -65,11 +65,21 @@ class CustomNetworkImage extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           border: border,
-          color: Colors.grey.withOpacity(0.6),
           borderRadius: borderRadius,
           shape: boxShape,
+          color: Colors.grey.shade50,
         ),
-        child: const Icon(Icons.error),
+        child: Center(
+          child: CircleAvatar(
+            radius: 24,
+            backgroundColor: Colors.grey.shade200,
+            child: Icon(
+              Icons.image_outlined,
+              color: Colors.grey.shade600,
+              size: 28,
+            ),
+          ),
+        ),
       ),
     );
   }

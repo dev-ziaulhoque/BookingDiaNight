@@ -1,5 +1,10 @@
+import 'package:bookdianight_app/app/modules/notification/views/notification_view.dart';
 import 'package:bookdianight_app/app/modules/profile/views/personal_information_view.dart';
+import 'package:bookdianight_app/app/modules/rules/views/about_us_view.dart';
+import 'package:bookdianight_app/app/modules/rules/views/privacy_policy_view.dart';
+import 'package:bookdianight_app/app/modules/rules/views/terms_and_condition_view.dart';
 
+import '../../../core/resources/app_assets/app_assets.dart';
 import '../../../core/resources/common_widget/custom_button.dart';
 import '../../../core/resources/common_widget/custom_text.dart';
 import '../../../core/utils/resource_const.dart';
@@ -28,16 +33,22 @@ class ProfileView extends StatelessWidget {
                   height: 200,
                   width: double.infinity,
                   decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(40),
+                    ),
                     image: DecorationImage(
-                      image: NetworkImage(
-                        "https://images.unsplash.com/photo-1514525253361-bee8a19740c1",
-                      ),
+                      image: AssetImage(AppAssets.profileHeaderImage),
                       fit: BoxFit.cover,
                     ),
                   ),
                   child: Container(
-                    color: Colors.black.withOpacity(0.6),
-                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.vertical(
+                        bottom: Radius.circular(40),
+                      ),
+                      color: Colors.black.withOpacity(0.5),
+                    ),
+                    alignment: const Alignment(0, -0.3),
                     child: const CustomText(
                       text: "My Profile",
                       fontSize: 22,
@@ -46,16 +57,18 @@ class ProfileView extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                // Profile Image overlapping the Curve
                 Positioned(
-                  bottom: -50,
+                  bottom: -55,
                   child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
-                      color: Colors.white24,
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white.withOpacity(0.2), width: 4),
                     ),
                     child: const CircleAvatar(
-                      radius: 50,
+                      radius: 55,
+                      backgroundColor: Colors.grey,
                       backgroundImage: NetworkImage(
                         "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
                       ),
@@ -64,6 +77,8 @@ class ProfileView extends StatelessWidget {
                 ),
               ],
             ),
+
+            /// user name
             const SizedBox(height: 60),
             Obx(
               () => CustomText(
@@ -89,22 +104,30 @@ class ProfileView extends StatelessWidget {
             ProfileOptionTile(
               icon: Icons.notifications_none,
               title: "Notifications",
-              onTap: () {},
+              onTap: () {
+                Get.to(() => const NotificationView());
+              },
             ),
             ProfileOptionTile(
               icon: Icons.info_outline,
               title: "About Us",
-              onTap: () {},
+              onTap: () {
+                Get.to(() => const AboutUsView());
+              },
             ),
             ProfileOptionTile(
               icon: Icons.description_outlined,
               title: "Terms and Conditions",
-              onTap: () {},
+              onTap: () {
+                Get.to(() => const TermsAndConditionView());
+              },
             ),
             ProfileOptionTile(
               icon: Icons.lock_outline,
               title: "Privacy Policy",
-              onTap: () {},
+              onTap: () {
+                Get.to(() => const PrivacyPolicyView());
+              },
             ),
             ProfileOptionTile(
               icon: Icons.logout,
