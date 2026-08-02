@@ -1,6 +1,7 @@
 import 'package:bookdianight_app/app/core/utils/custom_snack_bar.dart';
 import 'package:bookdianight_app/app/modules/authentication/views/forgot_password_view.dart';
 import 'package:bookdianight_app/app/modules/authentication/views/sign_up_view.dart';
+import 'package:bookdianight_app/app/modules/club_owner_side/dashboard/dashboard/owner_dashboard.dart';
 import 'package:bookdianight_app/app/modules/user_side/dashboard/user_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,8 @@ class LoginController extends GetxController {
     //   return;
     // }
 
-    Get.to(()=> UserDashboard());
+    // Get.to(()=> UserDashboard());
+    Get.to(()=> OwnerDashboard());
 
     print("Login Triggered with $email");
   }
