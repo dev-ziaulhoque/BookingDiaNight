@@ -21,6 +21,8 @@ class AppAssets {
   static const String navFavoriteInactive = 'assets/images/nav-favorite-inactive.png';
   static const String navProfileActive = 'assets/images/nav-profile-active.png';
   static const String navProfileInactive = 'assets/images/nav-profile-inactive.png';
+  static const String navEarningActive = 'assets/images/nav-nav_earning_active.png';
+  static const String navEarningInactive = 'assets/images/nav_earning_inactive.png';
 
   /// lottie
   static const String successAnim = 'assets/lottie/success_anim.json';
